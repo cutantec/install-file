@@ -1,0 +1,122 @@
+一.连接网络
+1.有线网络：跳过
+2.无线网络：
+iwctl
+device list
+station device_name scan
+station device_name get-networks
+station device_name connect ssid
+"input passwd"
+exit
+ping baidu.com
+二.安装系统
+1.设置镜像源：
+redlector --country China --sort rate --protocol https --sava /etc/pacman.d/mirrorlist
+pacman -Syy
+2.磁盘分区：
+lsblk //查看磁盘设备
+分区：
+a：boot分区 512M
+b：swap  1/2 memory
+c：/分区
+gdisk /dev/diskname
+n
+
+
++512M
+ef00
+n
+
+
++1/2 memory
+8200
+n
+
+
+
+
+w
+3.格式化磁盘
+mkfs.vfat /dev/diskname1
+mkfs.brtfs /dev/diskname3
+mkswap /dev/diskname2
+4.挂载磁盘
+mount dev/diskname3 /mnt
+mkdir -p /mnt/boot/efi && mount /dev/diskname1 /mnt/boot/efi
+swapon /dev/diskname2
+5.pacstrap /mnt linux linux-firmware linux-header base base-devel vim neovim bash-completion
+6.生成表文件
+genfstab -U /mnt 
+genfstab -U /mnt >> /mnt/etc/fstab
+7.进入系统
+arch-chroot /mnt
+
+8.配置基本软件
+pacman -Syy
+pacman -S grub efibootmgr efivar networkmanager amd-ucode/intel-ucode
+grub-install /dev/diskname
+nvim /etc/default/grub
+GRUB_GFXMODE=1920X1080
+grub-mkconfig -o /boot/grub/grub.cfg
+systemctl enable NetworkManager
+passwd root
+exit
+umount /mnt/boot/efi
+umount /mnt
+reboot
+
+三.进入新系统并配置
+1.连接网络
+有线网络：跳过
+无线网络：nmtui
+2.设置主机名
+nvim /etc/hostname
+input hostname
+nvim /etc/hosts
+127.0.0.1   localhost
+::1         localhost
+127.0.0.1   hostname.localdomain hostname
+3.设置时区
+timedatectl set-timezone Asia/Shanghai
+timedatectl set-ntp true
+4.添加用户
+useradd --create-home username
+passwd username
+usermod -aG wheel,users,storage,power,lp username
+export EDITOR=vim
+visudo
+/%wheel
+uncomment #%wheel ALL=(ALL) ALL
+reboot
+5.配置语言环境以及安装字体
+nvim /etc/locale.gen
+uncomment #en_US.UTF-8 UTF-8 and #zh_CN.UTF-8 UTF-8
+nvim /etc/locale.conf
+input LANG=en_US.UTF-8
+locale-gen
+pacman -S ttf-dejavu ttf-droid ttf-hack ttf-font-awesome otf-font-awesome ttf-lato ttf-liberation ttf-linux-libertine
+ttf-opensans ttf-roboto ttf-ubuntu-font-family
+paman -S ttf-hannom noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts
+adobe-source-sans-fonts adobe-source-serif-fonts ttf-jetbrains-mono ttf-jetbrains-mono-nerd adobe-source-han-sans-cn-fonts 
+adobe-source-han-sans-hk-fonts adobe-source-han-sans-tw-fonts adobe-source--han-serif-cn-fontswqy-zenhei wqy-microhei
+6.安装显卡驱动
+AMD: pacman -S xf86-video-amdgpu xf86-video-ati mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon
+INTEL: pacman -S xf86-video-intel vulkan-intel mesa
+NVIDIA: pacman -S nvidia-open nvidia-utils nvidia-open-dkms nvidia-open-lts nvidia-settings
+7.配置软件源
+reflector --country China --age 24 --sort rate --protocol https --sava /etc/pacman.d/mirrorlist
+nvim /etc/pacman.conf
+uncomment #[multilib] 
+在最后一行添加：
+[archlinuxcn]
+Server = https://mirrors.sustech.edu.cn/archlinuxcn/$arch
+sudo pacman -Sy && sudo pacman -S archlinuxcn-keyring
+sudo pacman -S paru
+
+
+8.安装以及配置桌面环境
+sudo pacman -S wayland hyprland hyprpaper wofi kitty fish sddm alsa-utils pipwire dolphin fcitx5 fcitx5-chinese-addons git steam hmcl cava
+
+
+
+
