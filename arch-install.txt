@@ -44,7 +44,7 @@ mkswap /dev/diskname2
 mount dev/diskname3 /mnt
 mkdir -p /mnt/boot/efi && mount /dev/diskname1 /mnt/boot/efi
 swapon /dev/diskname2
-5.pacstrap /mnt linux linux-firmware linux-header base base-devel vim neovim bash-completion
+5.pacstrap /mnt linux linux-firmware linux-headers base base-devel vim neovim bash-completion
 6.生成表文件
 genfstab -U /mnt 
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -102,7 +102,8 @@ adobe-source-han-sans-hk-fonts adobe-source-han-sans-tw-fonts adobe-source--han-
 6.安装显卡驱动
 AMD: pacman -S xf86-video-amdgpu xf86-video-ati mesa lib32-mesa vulkan-radeon lib32-vulkan-radeon
 INTEL: pacman -S xf86-video-intel vulkan-intel mesa
-NVIDIA: pacman -S nvidia-open nvidia-utils nvidia-open-dkms nvidia-open-lts nvidia-settings
+NVIDIA: after 1650/ pacman -S nvidia-open nvidia-utils nvidia-settings
+        before / pacman -S nvidia nvidia-utils nvidia-settings
 7.配置软件源
 reflector --country China --age 24 --sort rate --protocol https --sava /etc/pacman.d/mirrorlist
 nvim /etc/pacman.conf
@@ -115,7 +116,7 @@ sudo pacman -S paru
 
 
 8.安装以及配置桌面环境
-sudo pacman -S wayland hyprland hyprpaper wofi kitty fish sddm alsa-utils pipwire dolphin fcitx5 fcitx5-chinese-addons git steam hmcl cava
+sudo pacman -S wayland hyprland hyprpaper wofi kitty fish sddm alsa-utils pipwire pipewire-pulse yazi dolphin fcitx5 fcitx5-chinese-addons git steam hmcl cava
 
 
 
