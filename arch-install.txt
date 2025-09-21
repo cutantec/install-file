@@ -53,7 +53,7 @@ arch-chroot /mnt
 
 8.配置基本软件
 pacman -Syy
-pacman -S grub efibootmgr efivar networkmanager amd-ucode/intel-ucode
+pacman -S grub efibootmgr efivar networkmanager os-prober amd-ucode/intel-ucode
 grub-install /dev/diskname
 nvim /etc/default/grub
 GRUB_GFXMODE=1920X1080
