@@ -116,7 +116,7 @@ sudo pacman -S paru
 
 
 8.安装以及配置桌面环境
-sudo pacman -S wayland hyprland hyprpaper wofi kitty fish sddm alsa-utils pipwire pipewire-pulse yazi dolphin fcitx5 fcitx5-chinese-addons git steam hmcl cava
+sudo pacman -S wayland hyprland hyprpaper wofi waybar kitty fish sddm alsa-utils pipwire pipewire-pulse yazi dolphin fcitx5 fcitx5-chinese-addons git steam hmcl cava
 
 
 
