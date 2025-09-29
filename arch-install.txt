@@ -95,7 +95,7 @@ nvim /etc/locale.conf
 input LANG=en_US.UTF-8
 locale-gen
 pacman -S ttf-dejavu ttf-droid ttf-hack ttf-font-awesome otf-font-awesome ttf-lato ttf-liberation ttf-linux-libertine
-ttf-opensans ttf-roboto ttf-ubuntu-font-family
+ttf-opensans ttf-roboto ttf-ubuntu-font-family otf-codenewroman-nerd
 paman -S ttf-hannom noto-fonts noto-fonts-extra noto-fonts-emoji noto-fonts-cjk adobe-source-code-pro-fonts
 adobe-source-sans-fonts adobe-source-serif-fonts ttf-jetbrains-mono ttf-jetbrains-mono-nerd adobe-source-han-sans-cn-fonts 
 adobe-source-han-sans-hk-fonts adobe-source-han-sans-tw-fonts adobe-source--han-serif-cn-fontswqy-zenhei wqy-microhei
@@ -116,7 +116,7 @@ sudo pacman -S paru
 
 
 8.安装以及配置桌面环境
-sudo pacman -S wayland hyprland hyprpaper wofi waybar kitty fish sddm alsa-utils pipwire pipewire-pulse yazi dolphin fcitx5 fcitx5-chinese-addons git steam hmcl cava
+sudo pacman -S wayland hyprland/niri hyprpaper wofi waybar kitty fish sddm alsa-utils pipwire pipewire-pulse yazi dolphin fcitx5 fcitx5-chinese-addons git steam hmcl cava mako
 sudo pacman -S grim slurp dunst wl-clipboard jq libnotify
 
 
