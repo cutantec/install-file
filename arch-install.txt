@@ -11,7 +11,7 @@ exit
 ping baidu.com
 二.安装系统
 1.设置镜像源：
-redlector --country China --sort rate --protocol https --sava /etc/pacman.d/mirrorlist
+reflector --country China --sort rate --protocol https --save /etc/pacman.d/mirrorlist
 pacman -Syy
 2.磁盘分区：
 lsblk //查看磁盘设备
